@@ -24,7 +24,7 @@ Il processo segue una pipeline strutturata in 8 passaggi sequenziali:
 
 ## 🛠️ Prerequisiti
 
-* **PowerShell 5.1 o PowerShell 7+**
+* **PowerShell 7+**
 * **Modulo dbatools** installato sulla macchina che esegue lo script:
 ```powershell
 Install-Module -Name dbatools -Scope AllUsers -Force
