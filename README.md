@@ -1,6 +1,6 @@
 # SQL Server Express Backup & Restore (via dbatools)
 
-Questo script PowerShell automatizza l'intero ciclo di vita del refresh (rinfresco) di un database SQL Server da un ambiente sorgente (Test/Staging) a un ambiente di destinazione (Produzione/Target/QA), garantendo al contempo la massima sicurezza grazie a backup preventivi e pulizia automatica dei file temporanei.
+Questo script PowerShell automatizza l'intero ciclo di vita del refresh di un database SQL Server da un ambiente sorgente (Test/Staging) a un ambiente di destinazione (Produzione/Target/QA), garantendo al contempo la massima sicurezza grazie a backup preventivi e pulizia automatica dei file temporanei.
 
 Lo script si basa interamente sul modulo open-source **dbatools**, garantendo performance elevate e gestione nativa delle logiche di backup/restore di SQL Server.
 
