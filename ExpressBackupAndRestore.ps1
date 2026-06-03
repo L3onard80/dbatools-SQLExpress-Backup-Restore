@@ -20,6 +20,7 @@
     - 21.05.2026: Implementato Rename-DbaDatabase leggendo dinamicamente la seconda riga dal file di configurazione.
     - 21.05.2026: Aggiunto Restore con Replace di db già esistente, Recovery model s shrink log file
     - 27.05.2026: Aggiunto Backup preventivo pre restore.
+    - 03.06.2026: Rimosso warning del comando shrink
 #>
 
 # Caricamento Modulo
@@ -129,21 +130,7 @@ try {
 
     # 8. Shrink del file di Log
     Write-Host "-> Esecuzione dello shrink del file di Log..." -ForegroundColor Yellow
-    # Temporaneamente silenzia output informativi/verbose/progress per evitare log a schermo
-    $oldInformationPreference = $InformationPreference
-    $oldVerbosePreference = $VerbosePreference
-    $oldProgressPreference = $ProgressPreference
-    $InformationPreference = 'SilentlyContinue'
-    $VerbosePreference = 'SilentlyContinue'
-    $ProgressPreference = 'SilentlyContinue'
-    try {
-        Invoke-DbaDbShrink -SqlInstance $TargetServer -Database $FinalDbName -FileType Log -ErrorAction Stop | Out-Null
-    } finally {
-        # Ripristina le preferenze originali
-        $InformationPreference = $oldInformationPreference
-        $VerbosePreference = $oldVerbosePreference
-        $ProgressPreference = $oldProgressPreference
-    }
+    Invoke-DbaDbShrink -SqlInstance $TargetServer -Database $FinalDbName -FileType Log -ErrorAction Stop -WarningAction SilentlyContinue
     Write-Host "-> Shrink del file di Log completato con successo." -ForegroundColor Green
 
     Write-Host "==> PROCESSO COMPLETATO CON SUCCESSO SU $TargetServer!" -ForegroundColor Green
