@@ -129,7 +129,21 @@ try {
 
     # 8. Shrink del file di Log
     Write-Host "-> Esecuzione dello shrink del file di Log..." -ForegroundColor Yellow
-    Invoke-DbaDbShrink -SqlInstance $TargetServer -Database $FinalDbName -FileType Log -ErrorAction Stop
+    # Temporaneamente silenzia output informativi/verbose/progress per evitare log a schermo
+    $oldInformationPreference = $InformationPreference
+    $oldVerbosePreference = $VerbosePreference
+    $oldProgressPreference = $ProgressPreference
+    $InformationPreference = 'SilentlyContinue'
+    $VerbosePreference = 'SilentlyContinue'
+    $ProgressPreference = 'SilentlyContinue'
+    try {
+        Invoke-DbaDbShrink -SqlInstance $TargetServer -Database $FinalDbName -FileType Log -ErrorAction Stop | Out-Null
+    } finally {
+        # Ripristina le preferenze originali
+        $InformationPreference = $oldInformationPreference
+        $VerbosePreference = $oldVerbosePreference
+        $ProgressPreference = $oldProgressPreference
+    }
     Write-Host "-> Shrink del file di Log completato con successo." -ForegroundColor Green
 
     Write-Host "==> PROCESSO COMPLETATO CON SUCCESSO SU $TargetServer!" -ForegroundColor Green
